@@ -5,6 +5,7 @@ from flask import Flask, redirect, render_template, request, send_from_directory
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf.csrf import CSRFProtect
+from config import DevelopmentConfig, ProductionConfig
 
 
 app = Flask(__name__, static_folder='static')
@@ -12,13 +13,15 @@ csrf = CSRFProtect(app)
 
 # WEBSITE_HOSTNAME exists only in production environment
 if 'WEBSITE_HOSTNAME' not in os.environ:
+    print("############ os.environ: ", os.environ)
     # local development, where we'll use environment variables
     print("Loading config.development and environment variables from .env file.")
-    app.config.from_object('azureproject.development')
+    # app.config.from_object(DevelopmentConfig)
+    print("############### app.config inside of if-else block: ", app.config)
 else:
     # production
     print("Loading config.production.")
-    app.config.from_object('azureproject.production')
+    app.config.from_object(ProductionConfig)
 
 
     app.config.update(
@@ -26,7 +29,9 @@ else:
         SQLALCHEMY_TRACK_MODIFICATIONS=False,
     )
 
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+    # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+
+print("############### app.config outside of if-else block: ", app.config)
 
 # Initialize the database connection
 db = SQLAlchemy(app)
