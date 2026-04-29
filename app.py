@@ -20,10 +20,13 @@ else:
     print("Loading config.production.")
     app.config.from_object('azureproject.production')
 
-app.config.update(
-    SQLALCHEMY_DATABASE_URI=app.config.get('DATABASE_URI'),
-    SQLALCHEMY_TRACK_MODIFICATIONS=False,
-)
+
+    app.config.update(
+        SQLALCHEMY_DATABASE_URI=app.config.get('DATABASE_URI'),
+        SQLALCHEMY_TRACK_MODIFICATIONS=False,
+    )
+
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 
 # Initialize the database connection
 db = SQLAlchemy(app)
@@ -120,4 +123,5 @@ def favicon():
                                'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 if __name__ == '__main__':
+
     app.run()
