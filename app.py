@@ -6,32 +6,44 @@ from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf.csrf import CSRFProtect
 from config import DevelopmentConfig, ProductionConfig
+import sqlalchemy
+import logging
 
+
+# Python Flask App logging
+# TODO: uncomment if logs need to be sent to file to read through
+# logging.basicConfig(level=logging.INFO, filename="app.log")
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger()
+
+# SQLAlchemy DB logging
+db_log_file_name = 'db.log'
+db_log_level = logging.INFO
+
+db_handler = logging.FileHandler(db_log_file_name)
+db_handler.setLevel(db_log_level)
+
+db_logger = logging.getLogger('sqlalchemy.engine')
+db_logger.addHandler(db_handler)
 
 app = Flask(__name__, static_folder='static')
 csrf = CSRFProtect(app)
 
 # WEBSITE_HOSTNAME exists only in production environment
 if 'WEBSITE_HOSTNAME' not in os.environ:
-    print("############ os.environ: ", os.environ)
     # local development, where we'll use environment variables
-    print("Loading config.development and environment variables from .env file.")
-    # app.config.from_object(DevelopmentConfig)
-    print("############### app.config inside of if-else block: ", app.config)
+    app.config.from_object(DevelopmentConfig)
+
 else:
-    # production
-    print("Loading config.production.")
     app.config.from_object(ProductionConfig)
 
+app.config.update(
+    SQLALCHEMY_DATABASE_URI=app.config.get('DATABASE_URI'),
+    SQLALCHEMY_TRACK_MODIFICATIONS=False,
+    SQLALCHEMY_ECHO=True
+)
 
-    app.config.update(
-        SQLALCHEMY_DATABASE_URI=app.config.get('DATABASE_URI'),
-        SQLALCHEMY_TRACK_MODIFICATIONS=False,
-    )
-
-    # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
-
-print("############### app.config outside of if-else block: ", app.config)
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 
 # Initialize the database connection
 db = SQLAlchemy(app)
@@ -128,5 +140,4 @@ def favicon():
                                'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 if __name__ == '__main__':
-
     app.run()

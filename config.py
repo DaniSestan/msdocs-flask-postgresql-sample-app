@@ -17,5 +17,6 @@ class DevelopmentConfig(Config):
 # class TestingConfig(Config):
 #     DATABASE_URI = ""
 
+# It's best to use system environment variables when deploying the app to Azure, as any sensitive data -- secrets and database credentials -- are not to be hardcoded in the app's source code.
 class ProductionConfig(Config):
     DATABASE_URI = ""

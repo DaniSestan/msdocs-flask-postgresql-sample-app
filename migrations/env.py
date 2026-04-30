@@ -1,11 +1,9 @@
 from __future__ import with_statement
-
 import logging
 from logging.config import fileConfig
-
 from flask import current_app
-
 from alembic import context
+
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -14,6 +12,8 @@ config = context.config
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
 fileConfig(config.config_file_name)
+print("############### config_file_name: ", config.config_file_name)
+#  TODO: configure sqlalchemy logging: https://docs.sqlalchemy.org/en/20/core/engines.html#configuring-logging
 logger = logging.getLogger('alembic.env')
 logger.info(f"############# config: {config}")
 
