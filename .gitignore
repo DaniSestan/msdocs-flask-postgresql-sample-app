@@ -1,3 +1,26 @@
+# Credentials files
+.changelog_generator.toml
+
+# Excluded folders and files
+tmp/
+
+# Idea project
+.idea/
+.DS-Store
+*.iml
+
+# Python-Flask App
+.venv/
+
+*.pyc
+__pycache__/
+
+instance/
+
+.pytest_cache/
+.coverage
+htmlcov/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
