@@ -12,19 +12,22 @@ import logging
 
 # Python Flask App logging
 # TODO: uncomment if logs need to be sent to file to read through
-# logging.basicConfig(level=logging.INFO, filename="app.log")
+# logging.basicConfig(level=logging.INFO, filename="tmp/app.log")
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger()
 
-# SQLAlchemy DB logging
-db_log_file_name = 'db.log'
-db_log_level = logging.INFO
+# TODO: refer to the config settings in the alembic.ini file
+# # SQLAlchemy DB logging
+# db_log_file_name = 'tmp/db.log'
+# db_log_level = logging.INFO
+#
+# db_handler = logging.FileHandler(db_log_file_name)
+# db_handler.setLevel(db_log_level)
 
-db_handler = logging.FileHandler(db_log_file_name)
-db_handler.setLevel(db_log_level)
-
-db_logger = logging.getLogger('sqlalchemy.engine')
-db_logger.addHandler(db_handler)
+# db_logger = logging.getLogger('sqlalchemy.engine')
+db_logger = logging.getLogger('sqlalchemy')
+logger.info(f"db_logger: {db_logger}")
+# db_logger.addHandler(db_handler)
 
 app = Flask(__name__, static_folder='static')
 csrf = CSRFProtect(app)

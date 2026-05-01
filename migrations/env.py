@@ -1,6 +1,7 @@
 from __future__ import with_statement
 import logging
 from logging.config import fileConfig
+from logging_config.logging_config import get_logging_config
 from flask import current_app
 from alembic import context
 
@@ -17,6 +18,7 @@ print("############### config_file_name: ", config.config_file_name)
 logger = logging.getLogger('alembic.env')
 logger.info(f"############# config: {config}")
 
+# what else
 # add your model's MetaData object here
 # for 'autogenerate' support
 # from myapp import mymodel

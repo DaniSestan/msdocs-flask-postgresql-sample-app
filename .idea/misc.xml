@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-    <component name="ProjectRootManager" version="2" default="true">
-        <output url="file://$PROJECT_DIR$/out" />
-    </component>
+  <component name="Black">
+    <option name="sdkName" value="Python 3.12 virtualenv at ~/Work/Work-Projects/sample-projects/msdocs-flask-postgresql-sample-app/.venv" />
+  </component>
+  <component name="ProjectRootManager" version="2" default="true" project-jdk-name="Python 3.12 virtualenv at ~/Work/Work-Projects/sample-projects/msdocs-flask-postgresql-sample-app/.venv" project-jdk-type="Python SDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
 </project>
