@@ -15,7 +15,7 @@ tmp/
 *.pyc
 __pycache__/
 
-instance/
+../../../../.config/JetBrains/IntelliJIdea2025.2/scratches/instance/
 
 .pytest_cache/
 .coverage
@@ -85,7 +85,7 @@ db.sqlite3
 db.sqlite3-journal
 
 # Flask stuff:
-instance/
+../../../../.config/JetBrains/IntelliJIdea2025.2/scratches/instance/
 .webassets-cache
 
 # Scrapy stuff:

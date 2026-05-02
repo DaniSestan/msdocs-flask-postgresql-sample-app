@@ -8,9 +8,14 @@ requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = ""
-version = ""
-dependencies = []
+name = "msdocs-flask-postgresql-sample-app"
+version = "1.0.0"
+dependencies = [
+    "Flask",
+    "Flask-Migrate",
+    "Flask-SQLAlchemy",
+    "alembic",
+]
 
 [tool.setuptools.packages.find]
 where = ["."]
