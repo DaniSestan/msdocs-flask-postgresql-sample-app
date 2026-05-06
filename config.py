@@ -11,7 +11,7 @@ class DevelopmentConfig(Config):
         dbuser=os.environ['DBUSER'],
         dbpass=os.environ['DBPASS'],
         dbhost=os.environ['DBHOST'],
-        dbname=os.environ['DBNAME']
+        dbname=os.environ['DBNAME'],
     )
 
 # class TestingConfig(Config):

@@ -7,27 +7,44 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_wtf.csrf import CSRFProtect
 from config import DevelopmentConfig, ProductionConfig
 import sqlalchemy
-import logging
-
-
-# Python Flask App logging
-# TODO: uncomment if logs need to be sent to file to read through
-# logging.basicConfig(level=logging.INFO, filename="tmp/app.log")
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger()
-
-# TODO: refer to the config settings in the alembic.ini file
-# # SQLAlchemy DB logging
-# db_log_file_name = 'tmp/db.log'
-# db_log_level = logging.INFO
+# import logging
 #
-# db_handler = logging.FileHandler(db_log_file_name)
-# db_handler.setLevel(db_log_level)
+#
+# # Python Flask App logging
+# # TODO: uncomment if logs need to be sent to file to read through
+# # logging.basicConfig(level=logging.INFO, filename="tmp/app.log")
+# logging.basicConfig(level=logging.INFO)
+# logger = logging.getLogger()
+#
+# # TODO: refer to the config settings in the alembic.ini file
+# # # SQLAlchemy DB logging
+# # db_log_file_name = 'tmp/db.log'
+# # db_log_level = logging.INFO
+# #
+# # db_handler = logging.FileHandler(db_log_file_name)
+# # db_handler.setLevel(db_log_level)
+#
+# # db_logger = logging.getLogger('sqlalchemy.engine')
+# db_logger = logging.getLogger('sqlalchemy')
+# logger.info(f"db_logger: {db_logger}")
+# # db_logger.addHandler(db_handler)
+import logging
+from logging.config import fileConfig
+# from alembic import context
 
-# db_logger = logging.getLogger('sqlalchemy.engine')
-db_logger = logging.getLogger('sqlalchemy')
-logger.info(f"db_logger: {db_logger}")
-# db_logger.addHandler(db_handler)
+# this is the Alembic Config object, which provides
+# access to the values within the .ini file in use.
+# config = context.config
+
+# Interpret the config file for Python logging.
+# This line sets up loggers basically.
+fileConfig(
+    os.environ['ALEMBIC_CONFIG'],
+    # disable_existing_loggers=False,
+    # defaults={"logfilename": "/home/dani/Work/Work-Projects/sample-projects/msdocs-flask-postgresql-sample-app/tmp/root_out.log"},
+)
+logger = logging.getLogger('alembic.env')
+
 
 app = Flask(__name__, static_folder='static')
 csrf = CSRFProtect(app)
@@ -43,7 +60,8 @@ else:
 app.config.update(
     SQLALCHEMY_DATABASE_URI=app.config.get('DATABASE_URI'),
     SQLALCHEMY_TRACK_MODIFICATIONS=False,
-    SQLALCHEMY_ECHO=True
+    SQLALCHEMY_ECHO=True,
+    # ALEMBIC_CONFI=os.environ['ALEMBIC_CONFIG']
 )
 
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'

@@ -1,10 +1,12 @@
 from __future__ import with_statement
+
+# TODO: configure logging: https://python.plainenglish.io/how-to-set-up-your-etl-project-as-a-software-engineer-ii-3ddac1e69768
 import logging
 from logging.config import fileConfig
-from logging_config.logging_config import get_logging_config
-from flask import current_app
-from alembic import context
 
+from flask import current_app
+
+from alembic import context
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -12,13 +14,13 @@ config = context.config
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
-fileConfig(config.config_file_name)
-print("############### config_file_name: ", config.config_file_name)
-#  TODO: configure sqlalchemy logging: https://docs.sqlalchemy.org/en/20/core/engines.html#configuring-logging
+fileConfig(
+    config.config_file_name,
+    # disable_existing_loggers=False,
+    # defaults={"logfilename": "/home/dani/Work/Work-Projects/sample-projects/msdocs-flask-postgresql-sample-app/tmp/root_out.log"},
+)
 logger = logging.getLogger('alembic.env')
-logger.info(f"############# config: {config}")
 
-# what else
 # add your model's MetaData object here
 # for 'autogenerate' support
 # from myapp import mymodel
