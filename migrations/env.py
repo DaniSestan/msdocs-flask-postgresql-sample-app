@@ -7,6 +7,7 @@ from logging.config import fileConfig
 from flask import current_app
 
 from alembic import context
+from logs.get_file_config_defaults import get_file_config_defaults
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -14,8 +15,11 @@ config = context.config
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
+# TODO: dynamic log file names; logs are uploaded to azure, deleted every 1-3 months what else
 fileConfig(
     config.config_file_name,
+    defaults=get_file_config_defaults(),
+
     # disable_existing_loggers=False,
     # defaults={"logfilename": "/home/dani/Work/Work-Projects/sample-projects/msdocs-flask-postgresql-sample-app/tmp/root_out.log"},
 )
